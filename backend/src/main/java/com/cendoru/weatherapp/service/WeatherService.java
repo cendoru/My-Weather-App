@@ -1,5 +1,7 @@
 package com.cendoru.weatherapp.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import com.cendoru.weatherapp.client.OpenWeatherClient;
 import com.cendoru.weatherapp.client.OpenWeatherResponse;
@@ -14,10 +16,11 @@ public class WeatherService {
         this.client = client;
     }
 
-    public WeatherDTO getWeather(String location) {
-        OpenWeatherResponse response = client.fetchWeather(location);
+    public WeatherDTO getWeather(double lon, double lat) {
+        OpenWeatherResponse response = client.fetchWeather(lon, lat);
 
         WeatherDTO dto = new WeatherDTO();
+
         dto.setLocation(response.getName());
         dto.setDescription(response.getWeather().get(0).getDescription());
         dto.setTemperature(response.getMain().getTemp());
